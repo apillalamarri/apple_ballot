@@ -51,10 +51,11 @@ for row in reader:
         single_item = createSingleItem(row)
         countiesDict["counties"][row.get("County").lower()].append(single_item)
 
-#Still need to order the dict
 print json.dumps(statewideDict)
 print json.dumps(countiesDict)
-#print json.dumps(collections.OrderdDict(countiesDict))
+
+#Still need to order the dict
+#print json.dumps(collections.OrderedDict(countiesDict))
 
 
 
