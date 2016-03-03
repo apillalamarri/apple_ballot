@@ -23,21 +23,19 @@ csv_filename = sys.argv[-1]
 csvfile = open(csv_filename, 'rU')
 reader = csv.DictReader(csvfile)
 
-#Create the statewideDict
+#Create an empty counties dictionary
+countiesDict = {"counties" : {}}
+
+#Create an empty set to store the list of unique counties from the csv
+counties = Set()
+
+#Create the statewideDict and the sorted list of counties
 statewideDict = {"statewide" : []}
 for row in reader:
     if row.get("County") == "Statewide":
         single_item = createSingleItem(row)
         statewideDict["statewide"].append(single_item)
-
-#Create an empty counties dictionary
-countiesDict = {"counties" : {}}
-
-#Create the list of unique counties from the csv
-counties = Set()
-csvfile.seek(0)
-for row in reader:
-    if row.get("County") != "Statewide" and row.get("First Name") != "":
+    elif row.get("First Name") != "":
         lc_county = row.get("County").lower()
         counties.add(lc_county)
 counties = sorted(list(counties))
@@ -46,20 +44,18 @@ counties = sorted(list(counties))
 for county in counties:
     countiesDict["counties"][county] = []
 
-#Add county items to the lists that are the values of each countiesDict dictionary item
+#Add county items to the county lists, which are the values of each countiesDict dictionary item
 csvfile.seek(0)
+next(reader, None)
 for row in reader:
     if row.get("County") != "Statewide" and row.get("Office") not in ("Senate", "House of Delegates") and row.get("First Name") != "":
         single_item = createSingleItem(row)
         countiesDict["counties"][row.get("County").lower()].append(single_item)
 
+#Still need to order the dict
+print json.dumps(statewideDict)
 print json.dumps(countiesDict)
 #print json.dumps(collections.OrderdDict(countiesDict))
-
-
-
-
-#print json.dumps(statewideDict)
 
 
 
