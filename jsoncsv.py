@@ -1,9 +1,20 @@
 import json
 import csv
 import sys
-
-
 from sets import Set
+
+def createSingleItem(row):
+    single_item = []
+    single_item.append(row.get("County"))
+    single_item.append(row.get("Office"))
+    single_item.append(row.get("Dist"))
+    single_item.append(row.get("First Name"))
+    single_item.append(row.get("Last Name"))
+    single_item.append(row.get("Party"))
+    single_item.append(row.get("URL"))
+    single_item.append("")
+    return single_item
+
 
 #Get the name of the csv file from the command line
 csv_filename = sys.argv[-1]
@@ -16,15 +27,7 @@ reader = csv.DictReader(csvfile)
 statewideDict = {"statewide" : []}
 for row in reader:
     if row.get("County") == "Statewide":
-        single_item = []
-        single_item.append(row.get("County"))
-        single_item.append(row.get("Office"))
-        single_item.append(row.get("Dist"))
-        single_item.append(row.get("First Name"))
-        single_item.append(row.get("Last Name"))
-        single_item.append(row.get("Party"))
-        single_item.append(row.get("URL"))
-        single_item.append("")
+        single_item = createSingleItem(row)
         statewideDict["statewide"].append(single_item)
 
 
@@ -38,22 +41,13 @@ for row in reader:
         counties.add(lc_county)
 counties = sorted(list(counties))
 
-
 for county in counties:
     countiesDict["counties"][county] = []
 
 csvfile.seek(0)
 for row in reader:
     if row.get("County") != "Statewide" and row.get("Office") not in ("Senate", "House of Delegates") and row.get("First Name") != "":
-        single_item = []
-        single_item.append(row.get("County"))
-        single_item.append(row.get("Office"))
-        single_item.append(row.get("Dist"))
-        single_item.append(row.get("First Name"))
-        single_item.append(row.get("Last Name"))
-        single_item.append(row.get("Party"))
-        single_item.append(row.get("URL"))
-        single_item.append("")
+        single_item = createSingleItem(row)
         countiesDict["counties"][row.get("County").lower()].append(single_item)
 
 print json.dumps(countiesDict)
