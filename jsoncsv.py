@@ -30,20 +30,23 @@ for row in reader:
         single_item = createSingleItem(row)
         statewideDict["statewide"].append(single_item)
 
-
+#Create an empty counties dictionary
 countiesDict = {"counties" : {}}
+
+#Create the list of unique counties from the csv
 counties = Set()
 csvfile.seek(0)
-
 for row in reader:
     if row.get("County") != "Statewide" and row.get("First Name") != "":
         lc_county = row.get("County").lower()
         counties.add(lc_county)
 counties = sorted(list(counties))
 
+#Add keys for each county to countiesDict
 for county in counties:
     countiesDict["counties"][county] = []
 
+#Add county items to the lists that are the values of each countiesDict dictionary item
 csvfile.seek(0)
 for row in reader:
     if row.get("County") != "Statewide" and row.get("Office") not in ("Senate", "House of Delegates") and row.get("First Name") != "":
