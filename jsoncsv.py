@@ -15,7 +15,6 @@ def createSingleItem(row):
     single_item.append("")
     return single_item
 
-
 #Get the name of the csv file from the command line
 csv_filename = sys.argv[-1]
 
@@ -56,15 +55,6 @@ for row in reader:
 print json.dumps(statewideDict)
 print json.dumps(countiesDict)
 #print json.dumps(collections.OrderdDict(countiesDict))
-
-
-
-
-
-
-
-
-
 
 
 
