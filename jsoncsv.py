@@ -93,71 +93,7 @@ for row in reader:
         lower_dict["lower"][row.get("Dist").lower()].append(single_item)
 
 
-
-
 print json.dumps(statewide_dict)
 print json.dumps(counties_dict)
 print json.dumps(upper_dict)
 print json.dumps(lower_dict)
-
-
-
-
-"""def indexFunction(indexKey):
-
-
-stateWideObject = indexFunction("statewide")
-
-for row in reader:
-
-
-print masterDictionary
-"""
-#Apend each dictionary item to masterDictionary
-#for row in reader:
-
-
-"""
-1. Open the csv
-2. Iterate through each csv row to build dictionary items following this schema:
-    [
-        "County",
-        "Office Title",
-        "District",
-        "First Name",
-        "Last Name",
-        "Party",
-        "URL",
-        ""
-    ]
-
-3. Build new JSON object by reindexing the counties for statewide
-    "statewide": {
-        "county name" : [
-            OBJECT INFO
-            ],
-    }
-
-
-4. Build new JSON object by reindexing the counties
-    counties: {
-        "county name" : [
-            OBJECT INFO
-            ],
-    }
-
-5. Reindex the upper districts (assume office=senate)
-    "upper": {
-        "District" : [
-            OBJECT INFO
-        ]
-    }
-
- 6. Reindex the lower districts (assume office=House of Delegates)
-    "lower": {
-        "District" : [
-            OBJECT INFO
-        ]
-    }
-
-"""
