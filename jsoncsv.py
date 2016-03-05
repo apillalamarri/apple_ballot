@@ -4,6 +4,7 @@ import sys
 from sets import Set
 import collections
 
+#Function for building single_item
 def createSingleItem(row):
     single_item = []
     single_item.append(row.get("County"))
