@@ -29,6 +29,7 @@ counties_dict = collections.OrderedDict()
 upper_dict = collections.OrderedDict()
 lower_dict = collections.OrderedDict()
 
+statewide_dict = {"statewide" : []}
 counties_dict = {"counties" : {}}
 upper_dict = {"upper" : {}}
 lower_dict = {"lower" : {}}
@@ -38,8 +39,7 @@ counties = Set()
 upper_districts = Set()
 lower_districts = Set()
 
-#Create the statewide_dict and the unique lists of counties
-statewide_dict = {"statewide" : []}
+#Create the statewide_dict and the unique lists of counties, uppper districts, and lower districts
 for row in reader:
     if row.get("Office") == "Senate":
         upper_districts.add(row.get("Dist").lower())
@@ -92,8 +92,16 @@ for row in reader:
         single_item = createSingleItem(row)
         lower_dict["lower"][row.get("Dist").lower()].append(single_item)
 
+master_dict = collections.OrderedDict()
+master_dict = statewide_dict.copy()
+master_dict.update(counties_dict)
+print json.dumps(master_dict)
+"""
+master_dict.update(counties_dict)
+#print json.dumps(master_dict)
+master_dict.update(upper_dict)
 
-print json.dumps(statewide_dict)
-print json.dumps(counties_dict)
-print json.dumps(upper_dict)
-print json.dumps(lower_dict)
+#print master_dict
+master_dict.update(lower_dict)
+#print master_dict
+"""
